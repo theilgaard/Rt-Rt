@@ -29,3 +29,7 @@
 
 # Vim 
 *.swp
+
+# Resources and build
+build/*
+resources/*
