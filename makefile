@@ -9,16 +9,18 @@ CFLAGS = -Wall -c -std=c++11 -MD
 LFLAGS = -Wall `pkg-config --static --libs glew glfw3`
 PROGRAMNAME = Rtrt.out
 OUTPUTDIR = .
-SHADERDIR = $(OUTPUTDIR)/shaders/
+RESOURCEDIR = $(OUTPUTDIR)/resources/
+SHADERDIR = $(RESOURCEDIR)/shaders/
+CONFIGDIR = $(RESOURCEDIR)/config/
 
 $(PROGRAMNAME) : $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o $(PROGRAMNAME)
-	mkdir $(SHADERDIR)
-	cp src/shaders/* $(SHADERDIR)
+	mkdir $(RESOURCEDIR)
+	cp -r src/resources/* $(RESOURCEDIR)
 
 $(OBJS): build/%.o: src/%.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@
 
 clean: 
-	rm build/*.o $(OUTPUTDIR)/$(PROGRAMNAME) 
-	rm -rf $(SHADERDIR) 
+	rm build/*.o build/*.d $(OUTPUTDIR)/$(PROGRAMNAME) 
+	rm -rf $(RESOURCEDIR) 
